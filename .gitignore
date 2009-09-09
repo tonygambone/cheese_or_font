@@ -1,0 +1,9 @@
+config/database.yml
+db/*.sqlite3
+log/*
+tmp/*
+.DS_Store
+.DS_config
+doc/api
+doc/app
+nbproject/
