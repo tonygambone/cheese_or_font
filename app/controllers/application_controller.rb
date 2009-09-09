@@ -31,12 +31,13 @@ class ApplicationController < ActionController::Base
   private
   
   def message(is_correct, item)
-    '%s %s is a %s. %d%% of people get stumped on that.' % 
+    '%s %s is a %s. %d%% of people %s.' % 
       [
         is_correct ? 'Correct!' : 'Incorrect!',
         item.name,
         item.cheese? ? "cheese" : "font",
-        item.difficulty*100
+        is_correct ? (1-item.difficulty)*100 : item.difficulty*100,
+        is_correct ? 'get that right' : 'get stumped on that'
       ]
   end
 end
