@@ -1,0 +1,21 @@
+
+<title>Cheese or Font</title>
+
+<style type="text/css">
+#container { text-align: center; font-family: sans-serif; width: 50%; margin: auto; }
+#container form, #container form div { display: inline; }
+a { text-decoration: none; background-color: #f6f6f6; color: #930; }
+a img { border: 0; }
+
+.item { font-size: 250%; font-weight: bold; }
+.result { color: white; padding: 8px 12px; }
+.correct { background-color: #060; }
+.incorrect { background-color: #900; }
+.choice { vertical-align: middle; margin-right: 40px; }
+
+#other { color: #666; font-size: 80%; margin-top: 60px; }
+</style>
+
+<div id="container">
+<%= yield %>
+</div>

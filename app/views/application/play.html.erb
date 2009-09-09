@@ -1,0 +1,23 @@
+
+<% if flash.include? :correct -%>
+<p class="result correct"><%= flash[:correct] %></p>
+<% elsif flash.include? :incorrect -%>
+<p class="result incorrect"><%= flash[:incorrect] %></p>
+<% end -%>
+<p class="item"><%= @item.name %></p>
+
+<% form_tag choose_path do -%>
+<div>
+  <%= hidden_field_tag("id", @item.id) %>
+  <%= hidden_field_tag("guess", "cheese") %>
+  <%= image_submit_tag("cheese.png", :class => "choice", :value=>"Cheese", :title => "Cheese") %>
+</div>
+<% end -%>
+<% form_tag choose_path do -%>
+<div>
+  <%= hidden_field_tag("id", @item.id) %>
+  <%= hidden_field_tag("guess", "font") %>
+  <%= image_submit_tag("font.png", :class => "choice", :value=>"Font", :title=>"Font") %>
+</div>
+<% end -%>
+<p id="other"><%= link_to "back", root_path %></p>

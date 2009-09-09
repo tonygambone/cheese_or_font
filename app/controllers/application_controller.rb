@@ -5,16 +5,38 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  def show
-    @item = Item.find(:random)
+  def index
+  end
+  
+  def play(last = nil)
+    @item = Item.find(:random)    
   end
 
   def choose
     item = Item.find(params[:id])
-    if !item.nil? && item.is(params[:guess])
-      render :text => "Correct!"
+    if !item.nil?
+      if item.is(params[:guess])
+        item.increment!(:correct)
+        flash[:correct] = message(true, item)
+      else
+        item.increment!(:incorrect)
+        flash[:incorrect] = message(false, item)
+      end
+      redirect_to :action => 'play'
     else
-      render :text => "Incorrect!"
-    end
+      redirect_to :action => 'index'
+    end   
+  end
+  
+  private
+  
+  def message(is_correct, item)
+    '%s %s is a %s. %d%% of people get stumped on that.' % 
+      [
+        is_correct ? 'Correct!' : 'Incorrect!',
+        item.name,
+        item.cheese? ? "cheese" : "font",
+        item.difficulty*100
+      ]
   end
 end

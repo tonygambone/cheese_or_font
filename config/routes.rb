@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
 
   map.root :controller => 'application'
-  map.show 'show', :controller => 'application', :action => 'show', :conditions => { :method => :get }
+  map.play 'play', :controller => 'application', :action => 'play', :conditions => { :method => :get }
   map.choose 'choose', :controller => 'application', :action => 'choose', :conditions => { :method => :post }
 
   # Sample of regular route:
