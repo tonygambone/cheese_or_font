@@ -28,6 +28,32 @@ class ApplicationController < ActionController::Base
     end   
   end
   
+  def stats
+    # sorted from hardest -> easiest, with more attempts appearing first for the same ratio
+    # also includes 'attempts' and 'ratio' as properties
+    @hardest_items = Item.find(:all,
+          :select => "*, correct+incorrect attempts, 1.0*correct/(correct+incorrect) as ratio",
+          :conditions => ["ratio >= 0"], # TODO: minimum number of attempts to be included?          
+          :order => "ratio ASC, attempts DESC",
+          :limit => 5)
+    # sorted from easiest -> hardest, with more attempts appearing first for the same ratio
+    # also includes 'attempts' and 'ratio' as properties
+    @easiest_items = Item.find(:all,
+          :select => "*, correct+incorrect attempts, 1.0*correct/(correct+incorrect) as ratio",
+          :conditions => ["ratio >= 0"], # TODO: minimum number of attempts to be included?          
+          :order => "ratio DESC, attempts DESC",
+          :limit => 5)
+    total_select = "'%s' as name, sum(correct) as correct, sum(incorrect) as incorrect, NULL as attempts, NULL as ratio"
+    @totals = [
+      Item.find(:first,:select=>total_select % 'Cheese performance',:conditions=>["cheese = ?", true]),
+      Item.find(:first,:select=>total_select % 'Font performance',:conditions=>["cheese = ?", false]),
+      Item.find(:first,:select=>total_select % 'Overall performance')]
+    @totals.each do |t|
+      t.attempts = t.correct + t.incorrect
+      t.ratio = t.correct.to_f/t.attempts
+    end
+  end
+  
   private
   
   def message(is_correct, item)

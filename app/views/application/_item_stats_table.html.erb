@@ -1,0 +1,17 @@
+  <tr>
+    <th colspan="3" class="title"><%=h table_title %></th>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <th>Performance</th>
+    <th>Attempts</th>
+  </tr>
+<% first = true -%>
+<% items.each do |h| -%>
+  <tr>
+    <td><%=h h.name %></td>
+    <td><%=h "%.1f%s" % [(100*(h.ratio.to_f)), first ? "%" : ""] %></td>
+    <td><%=h h.attempts %></td>
+  </tr>
+<% first = false -%>
+<% end -%>

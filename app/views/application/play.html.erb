@@ -20,4 +20,7 @@
   <%= image_submit_tag("font.png", :class => "choice", :value=>"Font", :title=>"Font") %>
 </div>
 <% end -%>
-<p id="other"><%= link_to "back", root_path %></p>
+<div id="other">
+<%= link_to "home", root_path %> | 
+<%= link_to "stats", stats_path %>
+</p>

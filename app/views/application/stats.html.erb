@@ -1,0 +1,12 @@
+<%# @hardest_items, @easiest_items, @totals -%>
+
+<table class="item_stats">
+<%= render :partial => "item_stats_table", :locals => { :table_title => "Hardest items", :items => @hardest_items } %>
+<%= render :partial => "item_stats_table", :locals => { :table_title => "Easiest items", :items => @easiest_items } %>
+<%= render :partial => "item_stats_table", :locals => { :table_title => "Performance totals", :items => @totals } %>
+</table>
+
+<div id="other">
+<%= link_to "home", root_path  %> |
+<%= link_to "play", play_path  %>
+</div>
