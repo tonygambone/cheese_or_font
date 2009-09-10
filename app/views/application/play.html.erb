@@ -8,15 +8,15 @@
 
 <% form_tag choose_path do -%>
 <div>
-  <%= hidden_field_tag("id", @item.id) %>
-  <%= hidden_field_tag("guess", "cheese") %>
+  <%= hidden_field_tag("id", @item.id, { :id => "cheese_id" }) %>
+  <%= hidden_field_tag("guess", "cheese", { :id => "cheese_guess" }) %>
   <%= image_submit_tag("cheese.png", :class => "choice", :value=>"Cheese", :title => "Cheese") %>
 </div>
 <% end -%>
 <% form_tag choose_path do -%>
 <div>
-  <%= hidden_field_tag("id", @item.id) %>
-  <%= hidden_field_tag("guess", "font") %>
+  <%= hidden_field_tag("id", @item.id, { :id => "font_id" }) %>
+  <%= hidden_field_tag("guess", "font", { :id => "font_guess" }) %>
   <%= image_submit_tag("font.png", :class => "choice", :value=>"Font", :title=>"Font") %>
 </div>
 <% end -%>
