@@ -1,7 +1,7 @@
 config/database.yml
 db/*.sqlite3
-log/*
-tmp/*
+log/[^.]*
+tmp/[^.]*
 .DS_Store
 .DS_config
 doc/api
