@@ -33,14 +33,14 @@ class ApplicationController < ActionController::Base
     # also includes 'attempts' and 'ratio' as properties
     @hardest_items = Item.find(:all,
           :select => "*, correct+incorrect attempts, 1.0*correct/(correct+incorrect) as ratio",
-          :conditions => ["ratio >= 0"], # TODO: minimum number of attempts to be included?          
+          :conditions => ["ratio >= 0 and incorrect >= 50"],
           :order => "ratio ASC, attempts DESC",
           :limit => 5)
     # sorted from easiest -> hardest, with more attempts appearing first for the same ratio
     # also includes 'attempts' and 'ratio' as properties
     @easiest_items = Item.find(:all,
           :select => "*, correct+incorrect attempts, 1.0*correct/(correct+incorrect) as ratio",
-          :conditions => ["ratio >= 0"], # TODO: minimum number of attempts to be included?          
+          :conditions => ["ratio >= 0 and correct >= 50"],
           :order => "ratio DESC, attempts DESC",
           :limit => 5)
     total_select = "'%s' as name, sum(correct) as correct, sum(incorrect) as incorrect, NULL as attempts, NULL as ratio"
