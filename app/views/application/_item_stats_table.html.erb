@@ -11,7 +11,7 @@
   <tr>
     <td><%=h h.name %></td>
     <td><%=h "%.1f%s" % [(100*(h.ratio.to_f)), first ? "%" : ""] %></td>
-    <td><%=h h.attempts %></td>
+    <td><%=h number_with_delimiter(h.attempts) %></td>
   </tr>
 <% first = false -%>
 <% end -%>
