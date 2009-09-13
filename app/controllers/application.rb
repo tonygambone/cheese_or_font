@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  helper_method :hostname
 
   def index
   end
@@ -67,5 +68,9 @@ class ApplicationController < ActionController::Base
         is_correct ? (1-item.difficulty)*100 : item.difficulty*100,
         is_correct ? 'get that right' : 'get stumped on that'
       ]
+  end
+  
+  def hostname
+    request.env["SERVER_NAME"]
   end
 end
