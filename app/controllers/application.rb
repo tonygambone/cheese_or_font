@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :hostname
-  session :off
 
   def index
   end
