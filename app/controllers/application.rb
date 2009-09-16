@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :hostname
+  before_filter :authenticate_if_needed
 
   def index
   end
@@ -70,7 +71,36 @@ class ApplicationController < ActionController::Base
       ]
   end
   
+  def game_message(is_correct, game, item)    
+    counts = game.counts
+    '%s %s is a %s. Your current score: %d%% with %d remaining.' %
+      [
+        is_correct ? 'Correct!' : 'Incorrect!',
+        item.name,
+        item.cheese? ? "cheese" : "font",
+        100.0*counts[0]/(counts[0]+counts[1]),
+        Item.count - counts[0] - counts[1]
+      ]
+  end
+  
   def hostname
     request.env["SERVER_NAME"]
+  end
+  
+  # if the auth file (config/basic_auth.yml) exists, then do basic HTTP auth,
+  # otherwise allow the request. useful to secure test instances, etc.
+  # Auth file should be:
+  # username: the_username
+  # password: the_password
+  def authenticate_if_needed
+    auth_file = File.join(Rails.root, 'config', 'basic_auth.yml')
+    if File.exists? auth_file
+      creds = YAML::load(File.open(auth_file))
+      authenticate_or_request_with_http_basic do |username, password|
+        username == creds["username"] && password == creds["password"]
+      end
+    else
+      true
+    end
   end
 end
