@@ -1,0 +1,31 @@
+
+<% if flash.include? :correct -%>
+<p class="result correct"><%= flash[:correct] %></p>
+<% elsif flash.include? :incorrect -%>
+<p class="result incorrect"><%= flash[:incorrect] %></p>
+<% end -%>
+
+
+<h2>Congratulations!</h2>
+
+<p>You completed all <%= Item.count %> items in the game!</p>
+
+<p>Your final score was <%= '%.1f%%' % @game.final_score %>.</p>
+
+<p>The average score for completed games is <%= '%.1f%%' % @avg_score %>.</p>
+
+<p>Thanks for playing!</p>
+
+<div id="other">
+<%= link_to "home", root_path  %> |
+<%= link_to "post this on twitter",
+  "http://twitter.com?status=" +
+  CGI.escape(
+    "I just scored %.1f%% playing @cheeseorfont! %s" % [
+      @game.final_score,
+      game_url(:key => nil)
+    ]
+  )
+%> |
+<%= link_to "play again", game_path(:key => nil)  %>
+</div>

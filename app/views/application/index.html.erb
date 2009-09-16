@@ -1,9 +1,18 @@
 <p>It's time to play</p>
 <p><%= link_to image_tag("cheeseorfont.png", :alt=>"Cheese or Font"), play_path %></p>
+<p class="other">
+<%= link_to "Pratice Mode", play_path %><br/>
+In practice mode, you get a random name each time, and your choices are not tracked.<br/>You can keep going as long as you like.
+</p>
+<p class="other">
+<%= link_to "Game Mode", game_path(:key => nil) %><br/>
+In game mode, your choices count toward your final score.<br/>When you've seen every name, the game ends.<br/>
+</p>
+
 
 <div id="other">
 <p><a href="http://twitter.com/mogrify">@mogrify</a> made this.</p>
 <p>The <a href="http://twitter.com/dickchiclets/statuses/3738658555">idea</a> came from <a href="http://twitter.com/dickchiclets">@dickchiclets</a>.</p>
-<p>follow <a href="http://twitter.com/cheeseorfont">@cheeseorfont</a> on twitter.</p>
+<p>Follow <a href="http://twitter.com/cheeseorfont">@cheeseorfont</a> on twitter.</p>
 <p><%= link_to "stats", stats_path  %></p>
 </div>
