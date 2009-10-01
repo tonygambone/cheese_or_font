@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'application'
   map.play 'play', :controller => 'application', :action => 'play', :conditions => { :method => :get }
   map.choose 'choose', :controller => 'application', :action => 'choose', :conditions => { :method => :post }
-  map.stats 'stats', :controller => 'application', :action => 'stats', :conditions => { :method => :get }
+  map.stats 'statistics', :controller => 'application', :action => 'stats', :conditions => { :method => :get }
   map.game 'game/:key', :controller => 'application', :action => 'game', :conditions => { :method => :get }, :key => nil
   map.game_over 'game_over/:key', :controller => 'application', :action => 'game_over', :conditions => { :method => :get }
 
