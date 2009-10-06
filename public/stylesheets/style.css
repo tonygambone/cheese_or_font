@@ -16,3 +16,6 @@ table.item_stats { font-size: 80%; text-align: left; margin: 8px auto; color: #3
 table.item_stats td { padding: 2px 8px 2px 12px; }
 table.item_stats th { padding: 2px 8px; }
 table.item_stats .title { font-size: 110%; padding-top: 12px; border-bottom: 1px solid #666; }
+
+.monotask_link { margin-top: 90px; padding-bottom:11px;font-size: 12px; font-weight: normal; }
+.monotask_link a { color: #930; }
