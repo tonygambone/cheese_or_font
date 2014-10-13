@@ -6,7 +6,7 @@ the name of a cheese, or the name of a font. You guess, and then it tells
 you whether you were correct. You also get to see how other players did
 on the same item.
 
-Its official home is [http://cheeseorfont.mogrify.org/](http://cheeseorfont.mogrify.org/).
+Its official home is [http://cheeseorfont.com/](http://cheeseorfont.com/).
 
 The lists of fonts and cheeses (and a script to load them) are in db/.
 
