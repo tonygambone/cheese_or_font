@@ -23,7 +23,7 @@ class Game < ActiveRecord::Base
   
   # returns [correct, incorrect]
   def counts
-    a = guesses.reload.count(:all, :group => :correct)
+    a = guesses.reload.group(:correct).count
     [
       a.assoc(true) ? a.assoc(true)[1] : 0,
       a.assoc(false) ? a.assoc(false)[1] : 0

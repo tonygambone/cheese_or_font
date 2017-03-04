@@ -1,0 +1,33 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+#container { text-align: center; font-family: sans-serif; width: 50%; margin: auto; }
+#container form, #container form div { display: inline; }
+a img { border: 0; }
+
+.item { font-size: 250%; font-weight: bold; background-color: #f6f6f6; border: 1px solid #eee; padding: 16px; }
+.result { color: white; padding: 8px 12px; }
+.correct { background-color: #060; }
+.incorrect { background-color: #900; }
+.choice { vertical-align: middle; margin-right: 40px; }
+
+#other { color: #666; font-size: 80%; margin-top: 60px; }
+.other { color: #666; font-size: 80%; }
+#other a, .other a { text-decoration: none; background-color: #f6f6f6; color: #930; }
+
+table.item_stats { font-size: 80%; text-align: left; margin: 8px auto; color: #333; }
+table.item_stats td { padding: 2px 8px 2px 12px; }
+table.item_stats th { padding: 2px 8px; }
+table.item_stats .title { font-size: 110%; padding-top: 12px; border-bottom: 1px solid #666; }

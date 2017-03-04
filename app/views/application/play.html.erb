@@ -1,12 +1,12 @@
 
-<% if flash.include? :correct -%>
+<% if flash[:correct] -%>
 <p class="result correct"><%= flash[:correct] %></p>
-<% elsif flash.include? :incorrect -%>
+<% elsif flash[:incorrect] -%>
 <p class="result incorrect"><%= flash[:incorrect] %></p>
 <% end -%>
 <p class="item"><%= @item.name %></p>
 
-<% form_tag choose_path do -%>
+<%= form_tag choose_path do -%>
 <div>
   <%= hidden_field_tag("id", @item.id, { :id => "cheese_id" }) %>
   <%= hidden_field_tag("guess", "cheese", { :id => "cheese_guess" }) %>
@@ -16,7 +16,7 @@
   <%= image_submit_tag("cheese.png", :class => "choice", :value=>"Cheese", :title => "Cheese") %>
 </div>
 <% end -%>
-<% form_tag choose_path do -%>
+<%= form_tag choose_path do -%>
 <div>
   <%= hidden_field_tag("id", @item.id, { :id => "font_id" }) %>
   <%= hidden_field_tag("guess", "font", { :id => "font_guess" }) %>
@@ -31,7 +31,7 @@
 <%= link_to "home", root_path %> | 
 <%= link_to "stats", stats_path %>
 <% if @game -%>
-<p>The URL for this game is <%= link_to game_url, game_url %>.<br/>If you bookmark it,
+<p>The URL for this game is <%= link_to game_url(key: @game.key), game_url(key: @game.key) %>.<br/>If you bookmark it,
 you can return to the game at any time.<br/>Note: anyone who has the URL can play the game!</p>
 <% end -%>
 </div>
