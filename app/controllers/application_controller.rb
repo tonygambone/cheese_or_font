@@ -93,16 +93,16 @@ class ApplicationController < ActionController::Base
   def stats
     # sorted from hardest -> easiest, with more attempts appearing first for the same ratio
     # also includes 'attempts' and 'ratio' as properties
-    items_plus = Item.select("*, correct+incorrect as attempts, 1.0*correct/(correct+incorrect) as ratio").where('attempts > 0')
+    items_plus = Item.select("*, correct+incorrect as attempts, 1.0*correct/(correct+incorrect) as ratio").where('correct+incorrect > 0')
     @hardest_items = items_plus.order("ratio ASC, attempts DESC").limit(5)
     # sorted from easiest -> hardest, with more attempts appearing first for the same ratio
     # also includes 'attempts' and 'ratio' as properties
     @easiest_items = items_plus.order("ratio DESC, attempts DESC").limit(5)
     total_select = "'%s' as name, sum(correct) as correct, sum(incorrect) as incorrect, NULL as attempts, NULL as ratio"
     @totals = [
-      Item.select(total_select % 'Cheese performance').where(cheese: true).first,
-      Item.select(total_select % 'Font performance').where(cheese: false).first,
-      Item.select(total_select % 'Overall performance').first]
+      Item.select(total_select % 'Cheese performance').group(:id).where(cheese: true).first,
+      Item.select(total_select % 'Font performance').group(:id).where(cheese: false).first,
+      Item.select(total_select % 'Overall performance').group(:id).first]
     @totals.each do |t|
       t.attempts = t.correct + t.incorrect
       t.ratio = t.attempts != 0 ? t.correct.to_f/t.attempts : 0

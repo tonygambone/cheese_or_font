@@ -12,12 +12,15 @@
 
 ActiveRecord::Schema.define(version: 20090915133301) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "games", force: :cascade do |t|
     t.string   "key"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "final_score", precision: 4, scale: 1
-    t.index ["key"], name: "index_games_on_key", unique: true
+    t.index ["key"], name: "index_games_on_key", unique: true, using: :btree
   end
 
   create_table "guesses", force: :cascade do |t|
@@ -26,9 +29,9 @@ ActiveRecord::Schema.define(version: 20090915133301) do
     t.boolean  "correct",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["game_id"], name: "index_guesses_on_game_id"
-    t.index ["item_id", "game_id"], name: "index_guesses_on_item_id_and_game_id", unique: true
-    t.index ["item_id"], name: "index_guesses_on_item_id"
+    t.index ["game_id"], name: "index_guesses_on_game_id", using: :btree
+    t.index ["item_id", "game_id"], name: "index_guesses_on_item_id_and_game_id", unique: true, using: :btree
+    t.index ["item_id"], name: "index_guesses_on_item_id", using: :btree
   end
 
   create_table "items", force: :cascade do |t|
@@ -38,7 +41,7 @@ ActiveRecord::Schema.define(version: 20090915133301) do
     t.integer  "incorrect",  default: 0,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["name"], name: "index_items_on_name", unique: true
+    t.index ["name"], name: "index_items_on_name", unique: true, using: :btree
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -46,8 +49,8 @@ ActiveRecord::Schema.define(version: 20090915133301) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["session_id"], name: "index_sessions_on_session_id"
-    t.index ["updated_at"], name: "index_sessions_on_updated_at"
+    t.index ["session_id"], name: "index_sessions_on_session_id", using: :btree
+    t.index ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
   end
 
 end
