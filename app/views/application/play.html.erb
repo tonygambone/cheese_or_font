@@ -10,9 +10,6 @@
 <div>
   <%= hidden_field_tag("id", @item.id, { :id => "cheese_id" }) %>
   <%= hidden_field_tag("guess", "cheese", { :id => "cheese_guess" }) %>
-  <% if @game -%>
-  <%= hidden_field_tag("game", @game.key, { :id => "cheese_game" }) %>
-  <% end -%>
   <%= image_submit_tag("cheese.png", :class => "choice", :value=>"Cheese", :title => "Cheese") %>
 </div>
 <% end -%>
@@ -20,9 +17,6 @@
 <div>
   <%= hidden_field_tag("id", @item.id, { :id => "font_id" }) %>
   <%= hidden_field_tag("guess", "font", { :id => "font_guess" }) %>
-  <% if @game -%>
-  <%= hidden_field_tag("game", @game.key, { :id => "font_game" }) %>
-  <% end -%>
   <%= image_submit_tag("font.png", :class => "choice", :value=>"Font", :title=>"Font") %>
 </div>
 <% end -%>
@@ -30,8 +24,4 @@
 <div id="other">
 <%= link_to "home", root_path %> | 
 <%= link_to "stats", stats_path %>
-<% if @game -%>
-<p>The URL for this game is <%= link_to game_url(key: @game.key), game_url(key: @game.key) %>.<br/>If you bookmark it,
-you can return to the game at any time.<br/>Note: anyone who has the URL can play the game!</p>
-<% end -%>
 </div>

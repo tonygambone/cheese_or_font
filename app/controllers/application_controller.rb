@@ -13,81 +13,18 @@ class ApplicationController < ActionController::Base
 
   def choose
     item = Item.find(params[:id])
-    if !item.nil?          
-      game = params[:game] ? Game.find_by_key(params[:game]) : nil
-      guess = game ? Guess.new(:item => item, :game => game) : nil
+    if !item.nil?
       if item.is(params[:guess])
         item.increment!(:correct)
-        if game          
-          guess.correct = true
-          begin
-            guess.save!
-          rescue
-            # probably a duplicate record            
-          end
-          flash[:correct] = game_message(true, game, item)
-          redirect_to :action => 'game', :key => game.key
-        else
-          flash[:correct] = play_message(true, item)
-          redirect_to :action => 'play'
-        end
+        flash[:correct] = play_message(true, item)
       else
         item.increment!(:incorrect)
-        if game          
-          guess.correct = false
-          begin
-            guess.save!
-          rescue
-            # probably a duplicate record            
-          end
-          flash[:incorrect] = game_message(false, game, item)
-          redirect_to :action => 'game', :key => game.key
-        else        
-          flash[:incorrect] = play_message(false, item)
-          redirect_to :action => 'play'
-        end
-      end      
+        flash[:incorrect] = play_message(false, item)        
+      end
+      redirect_to :action => 'play'
     else
       redirect_to :action => 'index'
     end   
-  end
-  
-  def game    
-    @game = params[:key] ? Game.find_by_key(params[:key]) : Game.new
-    if @game.new_record?
-      while !@game.save
-        # handle key collisions by generating a new key
-        @game = Game.new
-      end
-      redirect_to game_path(:key => @game.key)
-      return
-    end    
-    if @game.over?
-      redirect_to game_over_path(:key => @game.key)
-      return
-    end
-    @item = @game.next_item
-    render :action => 'play'
-  end
-  
-  def game_over
-    @game = Game.find_by_key(params[:key], :include => :guesses)
-    if !@game
-      redirect_to game_path
-      return
-    elsif !@game.over?
-      redirect_to game_path(:key => @game.key)
-      return
-    elsif @game.final_score.nil?
-      counts = @game.counts
-      @game.final_score = 100.0 * counts[0] / (counts[0] + counts[1])
-      # no longer need to keep the guesses
-      @game.guesses.each do |g| g.destroy; end
-      @game.save
-    end
-    completed_games = Game.find(:all, :conditions => "final_score IS NOT NULL", :select => :final_score)
-    @avg_score = completed_games.inject(0){|sum,game|sum+game.final_score}.to_f / completed_games.size
-    @avg_score = 0.0 if @avg_score.nan?
   end
   
   def stats
@@ -119,18 +56,6 @@ class ApplicationController < ActionController::Base
         item.cheese? ? "cheese" : "font",
         is_correct ? (1-item.difficulty)*100 : item.difficulty*100,
         is_correct ? 'get that right' : 'get stumped on that'
-      ]
-  end
-  
-  def game_message(is_correct, game, item)    
-    counts = game.counts
-    '%s %s is a %s. Your current score: %d%% with %d remaining.' %
-      [
-        is_correct ? 'Correct!' : 'Incorrect!',
-        item.name,
-        item.cheese? ? "cheese" : "font",
-        100.0*counts[0]/(counts[0]+counts[1]),
-        Item.count - counts[0] - counts[1]
       ]
   end
   
