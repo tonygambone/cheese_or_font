@@ -4,6 +4,17 @@
 <% elsif flash[:incorrect] -%>
 <p class="result incorrect"><%= flash[:incorrect] %></p>
 <% end -%>
+
+<% if score_total > 0 -%>
+<p class="score">
+Your score: <%= "%.1f" % score_percent %>% (<%= score_correct %> of <%= score_total %>)
+<%= form_tag reset_path do -%>
+<div>
+  <%= submit_tag "Reset" %>
+</div>
+<% end -%>
+</p>
+<% end -%>
 <p class="item"><%= @item.name %></p>
 
 <%= form_tag choose_path do -%>

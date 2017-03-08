@@ -8,7 +8,13 @@ class ApplicationController < ActionController::Base
   end
   
   def play(last = nil)
-    @item = Item.find(:random)    
+    @item = Item.find(:random)
+    session[:stats] = { 'cheese' => [0,0], 'font' => [0,0] } unless session[:stats]
+  end
+
+  def reset
+    session.delete(:stats)
+    redirect_to action: 'play'
   end
 
   def choose
@@ -16,9 +22,11 @@ class ApplicationController < ActionController::Base
     if !item.nil?
       if item.is(params[:guess])
         item.increment!(:correct)
+        session[:stats][item.type][0] += 1
         flash[:correct] = play_message(true, item)
       else
         item.increment!(:incorrect)
+        session[:stats][item.type][1] += 1
         flash[:incorrect] = play_message(false, item)        
       end
       redirect_to :action => 'play'

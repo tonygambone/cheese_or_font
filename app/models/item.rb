@@ -29,4 +29,8 @@ class Item < ActiveRecord::Base
   def is(guess)
     (cheese? && guess.to_s == "cheese") || (font? && guess.to_s == "font")
   end
+
+  def type
+    cheese? ? "cheese" : "font"
+  end
 end

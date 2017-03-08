@@ -5,5 +5,6 @@ root to: 'application#index'
 get '/play', to: 'application#play', as: :play
 post '/choose', to: 'application#choose', as: :choose
 get '/statistics', to: 'application#stats', as: :stats
+post '/reset', to: 'application#reset', as: :reset
 
 end
